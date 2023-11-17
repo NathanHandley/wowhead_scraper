@@ -15,7 +15,7 @@ class NPCSpider(scrapy.Spider):
     lang = ""
     version = ""
     base_url_retail = "https://wowhead.com/{}/npc={}/"
-    base_url_wotlk = "https://wowhead.com/wotlk/{}/npc={}/"
+    base_url_wotlk = "https://wowhead.com/wotlk/npc={}/"
     base_url_tbc = "https://wowhead.com/tbc/{}/npc={}/"
     base_url_classic = "https://wowhead.com/classic/{}/npc={}/"
 
@@ -38,7 +38,7 @@ class NPCSpider(scrapy.Spider):
             # self.start_urls = [self.base_url.format(qid) for qid in [7]]
             self.xpath_name = "//div[@class='text']/h1/text()"
         else:
-            self.start_urls = [base_url.format(lang, nid) for nid in NPC_IDS]
+            self.start_urls = [base_url.format(nid) for nid in NPC_IDS]
 
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs) -> Spider:
