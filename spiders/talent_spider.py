@@ -8,11 +8,11 @@ from utils.formatter import Formatter
 import json
 
 
-class SkillSpider(scrapy.Spider):
-    name = "skill_scraper"
+class TalentSpider(scrapy.Spider):
+    name = "talent_scraper"
     start_urls = []
     lang = ""
-    base_url = "https://www.wowhead.com/wotlk/spells/abilities/{}"
+    base_url = "https://www.wowhead.com/wotlk/spells/talents/{}"
     classes = [
         "rogue",
         "warrior",
@@ -32,14 +32,14 @@ class SkillSpider(scrapy.Spider):
 
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
-        spider = super(SkillSpider, cls).from_crawler(crawler, *args, **kwargs)
+        spider = super(TalentSpider, cls).from_crawler(crawler, *args, **kwargs)
         crawler.signals.connect(spider.spider_closed, signal=signals.spider_closed)
         return spider
 
     def parse(self, response):
         if "?notFound=" in response.url:
             qid = response.url[response.url.index("?notFound=") + 10:]
-            self.logger.warning("Skill with ID '{}' could not be found.".format(qid))
+            self.logger.warning("Talent with ID '{}' could not be found.".format(qid))
             return
         className:str = response.url.split("/")[-1].split("?")[0]
         title = self.__parse_title(response)

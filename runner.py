@@ -6,7 +6,7 @@ from pathlib import Path
 
 from scrapy.crawler import CrawlerProcess
 
-from spiders import ItemSpider, NPCSpider, ObjectSpider, QuestSpider, QuestXpSpider, SkillSpider
+from spiders import ItemSpider, NPCSpider, ObjectSpider, QuestSpider, QuestXpSpider, SkillSpider, TalentSpider
 from utils.paths import OUTPUT_DIR
 
 
@@ -56,7 +56,9 @@ class Runner:
         elif self.target == "xp":
             process.crawl(QuestXpSpider, lang=self.lang, version=self.version)
         elif self.target == "skill":
-            process.crawl(SkillSpider, lang=self.lang)    
+            process.crawl(SkillSpider, lang=self.lang)
+        elif self.target == "talent":
+            process.crawl(TalentSpider, lang=self.lang)
 
         process.start()
 
